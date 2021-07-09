@@ -1,11 +1,17 @@
 import numpy as np
 from perceptron import Perceptron
+import sklearn
+from sklearn import datasets
 
-P=Perceptron(5)
+P=Perceptron(2)
 
-x=np.array([1,2,3,4,5],dtype=float)
-y=np.array([-1,-2,-3,-4,-5],dtype=float)
+X, Y = datasets.make_classification(
+    n_features=2,
+    n_classes=2,
+    n_samples=200,
+    n_redundant=0,
+    n_clusters_per_class=1
+)
 
-for i in range(4):
-    P.UpdateWeights(x,y)
-    print(P.Loss(x,y))
+P.Train(X,Y,100)
+
