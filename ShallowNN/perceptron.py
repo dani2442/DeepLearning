@@ -21,7 +21,7 @@ class Perceptron(object):
     def Train(self,X,Y,iter=100):
         self.iter=iter
         for it in range(iter):
-            loss=0 # Meassure the error
+            loss=0 # Measure the error
 
             for i in range(len(X)): # Calculate the gradient and loss of the batch
                 self.CalculateGradient(X[i],Y[i])
