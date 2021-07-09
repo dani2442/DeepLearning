@@ -1,6 +1,5 @@
 import numpy as np
 from perceptron import Perceptron
-import sklearn
 from sklearn import datasets
 
 P=Perceptron(2)
