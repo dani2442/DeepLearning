@@ -7,7 +7,7 @@ class LogisticRegression(object):
         self.rrate = regularization_param  # Regularization Constant
         self.lrate = learning_rate  # Learning Rate
         self.size = size
-        self.w = np.random.randn(size)  # Initialize weights using normal distribution
+        self.w = np.ones(size)  # Initialize weights using normal distribution
         
     def forward(self,x):
         return 1/(1+np.e**(-np.dot(self.w,x)))
@@ -16,7 +16,7 @@ class LogisticRegression(object):
         return -np.log(np.abs(y/2 - 0.5 + self.forward(x)))
     
     def gradient(self,x,y):
-        return -(y*x)*self.forward(-y*x)
+        return (-(y/2 - 0.5 + self.forward(x))/(y/2 - 0.5 + self.forward(x))**2)*(x*np.e**(-np.dot(self.w,x)))*self.forward(x)**2
     
     def updateweights(self,x,y):
         self.w = self.w*(1-self.lrate*self.rrate) - self.lrate*self.gradient(x,y)
