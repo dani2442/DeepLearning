@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 class LeastSquaresRegression(object):
 
     def __init__(self,size,learning_rate=0.001,regularization_param=0.1):
-        self.loss=None
         self.rrate=regularization_param  # Regularization Constant
         self.lrate=learning_rate  # Learning Rate
         self.size=size
