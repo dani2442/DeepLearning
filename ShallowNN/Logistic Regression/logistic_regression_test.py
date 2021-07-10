@@ -12,4 +12,10 @@ X,Y = datasets.make_classification(
     n_clusters_per_class=1
 )
 
-L.train(X,Y)
+def remplace(a):
+    for i in range(len(a)):
+        if a[i]==0:
+            a[i]=-1
+    return a
+
+L.train(X,remplace(Y))
