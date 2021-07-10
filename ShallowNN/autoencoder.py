@@ -5,7 +5,6 @@ import numpy as np
 # TODO: Nonlinear Activation (2.5.2) 
 # TODO: Deep Autoencoders, Multiple layers (2.5.3)
 
-
 class Autoencoder(object):
     def __init__(self,size_in,size_out,lrate=0.01,parameter_share=False):
         self.W=np.random.randn(size_in,size_out)
@@ -21,8 +20,8 @@ class Autoencoder(object):
         self.o=np.dot(self.W.T,x.T)
         self.output=np.dot(self.V.T,self.o)
 
-    def CalculateGradient(self,x,y):
-        self.dL=self.output-y.T
+    def CalculateGradient(self,x):
+        self.dL=self.output-x.T
         self.dV=np.dot(self.o,self.dL.T)
         self.dW=np.dot(np.dot(self.V,self.dL),x).T
         dd=5
@@ -31,19 +30,19 @@ class Autoencoder(object):
         self.V-=self.lrate*self.dV
         self.W-=self.lrate*self.dW
 
-    def Train(self,X,Y,iter=100):
+    def Train(self,X,iter=100):
         self.iter=iter
         for it in range(iter):
             loss=0
             for i in range(len(X)):
                 self.Forward(X[[i]])
-                self.CalculateGradient(X[[i]],Y[[i]])
-                loss+=self.Loss(X[[i]],Y[[i]])
+                self.CalculateGradient(X[[i]])
+                loss+=self.Loss(X[[i]])
 
                 self.UpdateWeights()
             if it%10==0: print(loss/iter)
 
-    def Loss(self,x,y):
-        return np.sum(np.square(self.output-y.T))/2
+    def Loss(self,x):
+        return np.sum(np.square(self.output-x.T))/2
 
 print("heheh2")

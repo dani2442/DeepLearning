@@ -12,11 +12,7 @@ X, Y = datasets.make_classification(
     n_clusters_per_class=1
 )
 
-Y_=[]
-for i in range(len(X)):
-    vec=np.zeros((4))
-    vec[Y[i]]=1
-    Y_+=[vec]
 
-P.Train(X,np.array(Y_),20)
+
+P.Train(X,2000)
 
