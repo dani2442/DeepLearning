@@ -4,8 +4,8 @@ class Perceptron(object):
     def __init__(self,size,learning_rate=0.001,regularization_param=0.1):
         self.gradient=np.zeros(size)
         self.loss=None
-        self.rrate=learning_rate  # Regularization constant
-        self.lrate=regularization_param  # Learning rate
+        self.rrate=regularization_param  # Regularization constant
+        self.lrate=learning_rate  # Learning rate
         self.size=size
         self.w=np.random.randn(size) # Initialize weights using normal distribution
 
