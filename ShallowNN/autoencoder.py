@@ -11,15 +11,21 @@ class Autoencoder(object):
         self.W=np.random.randn(size_in,size_out)
         self.V=np.random.randn(size_out,size_in)
 
-        self.lrate=0.01
+        self.lrate=lrate
         self.param_share=parameter_share 
 
-    def Forward(self,x):
-        return np.dot(self.V.T,np.dot(self.W.T,x))
+    def Encode(self,x):
+        return np.dot(self.W.T,x.T)
 
-    def CalculateGradient(self,output,y):
-        self.dV=self.V*self.GradientLoss(output,y)
-        self.dW=np.dot(self.W,self.dV)
+    def Forward(self,x):
+        self.o=np.dot(self.W.T,x.T)
+        self.output=np.dot(self.V.T,self.o)
+
+    def CalculateGradient(self,x,y):
+        self.dL=self.output-y.T
+        self.dV=np.dot(self.o,self.dL.T)
+        self.dW=np.dot(np.dot(self.V,self.dL),x).T
+        dd=5
 
     def UpdateWeights(self):
         self.V-=self.lrate*self.dV
@@ -30,15 +36,14 @@ class Autoencoder(object):
         for it in range(iter):
             loss=0
             for i in range(len(X)):
-                self.CalculateGradient(X[i],Y[i])
-                loss+=self.Loss(X[i],Y[i])
+                self.Forward(X[[i]])
+                self.CalculateGradient(X[[i]],Y[[i]])
+                loss+=self.Loss(X[[i]],Y[[i]])
 
                 self.UpdateWeights()
+            if it%10==0: print(loss/iter)
 
-            print(loss/iter)
+    def Loss(self,x,y):
+        return np.sum(np.square(self.output-y.T))/2
 
-    def Loss(self,output,y):
-        return np.sum(np.square(output-y))/2
-
-    def GradientLoss(self,output,y):
-        return output-y
+print("heheh2")
