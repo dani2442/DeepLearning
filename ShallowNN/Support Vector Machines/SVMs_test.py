@@ -1,8 +1,8 @@
 
-from SVMs import SupporVectorMachines
+from SVMs import SupportVectorMachines
 from sklearn import datasets
 
-S=SupporVectorMachines(2)
+S=SupportVectorMachines(2)
 
 X,Y = datasets.make_classification(
     n_features=2,
