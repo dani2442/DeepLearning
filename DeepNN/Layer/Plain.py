@@ -1,3 +1,5 @@
+from Layer import Layer
+
 class Plain(Layer):
     def __init__(self): super().__init__()
 
