@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# 2.2.3 
 class LogisticRegression(object):
 
     def __init__(self,size,learning_rate=0.001,regularization_param=0.1):
