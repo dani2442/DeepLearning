@@ -16,7 +16,8 @@ class LogisticRegression(object):
         return -np.log(np.abs(y/2 - 0.5 + self.forward(x)))
     
     def gradient(self,x,y):
-        return (-(y/2 - 0.5 + self.forward(x))/(y/2 - 0.5 + self.forward(x))**2)*(x*np.exp(-np.dot(self.w,x)))*(self.forward(x)**2)
+        return -y*x/(1+np.exp(y*np.dot(self.w,x)))
+        #return (-(y/2 - 0.5 + self.forward(x))/(y/2 - 0.5 + self.forward(x))**2)*(x*np.exp(-np.dot(self.w,x)))*(self.forward(x)**2)
     
     def updateweights(self,x,y):
         self.w = self.w*(1-self.lrate*self.rrate) - self.lrate*self.gradient(x,y)
@@ -29,6 +30,7 @@ class LogisticRegression(object):
             for i in range(len(X)):
                 loss+=self.loss(X[i],Y[i])
                 self.updateweights(X[i],Y[i])
-                
-            iter_loss+=[loss/len(X)]
-        return plt.plot(iter_loss)
+            
+            print(loss)
+            #iter_loss+=[loss/len(X)]
+        #return plt.plot(iter_loss)

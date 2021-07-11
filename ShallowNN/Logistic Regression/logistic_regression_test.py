@@ -18,4 +18,4 @@ def remplace(a):
             a[i]=-1
     return a
 
-L.train(X,remplace(Y))
+L.train(X,remplace(Y),50)
