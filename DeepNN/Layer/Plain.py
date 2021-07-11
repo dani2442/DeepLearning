@@ -24,4 +24,5 @@ class Plain(Layer):
     
     def Backward(self): pass
 
-    def UpdateParameters(self): pass
+    def UpdateParameters(self,learningmethod):
+        learningmethod.UpdateParameter(self.W,self.B,self.dW,self.dB)

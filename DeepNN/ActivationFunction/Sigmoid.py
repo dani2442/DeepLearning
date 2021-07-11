@@ -7,4 +7,4 @@ class Sigmoid(ActivationFunction):
 
     def Forward(self,x): return 1/(1+np.exp(-x))
 
-    def Backward(self,y): pass
+    def Backward(self,output,a): return output*(1-output)
