@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-class SupporVectorMachines(object):
+class SupportVectorMachines(object):
 
     def __init__(self,size,learning_rate=0.001,regularization_param=0.1):
         self.rrate=regularization_param  # Regularization Constant
