@@ -23,7 +23,7 @@ class word2vec(object):
     
     def Gradient(self,x,y):
         e = y - self.Output(x)
-        return [-np.sum(np.dot(e,np.transpose(self.v))),-np.dot(np.transpose(e),self.forwad(x))]
+        return [-np.sum(np.dot(e,np.transpose(self.v))),-np.dot(np.transpose(e),self.Forwad(x))]
     
     def UpdateWeights(self,x,y):
         self.u -= self.lrate*self.Gradient(x,y)[0]
