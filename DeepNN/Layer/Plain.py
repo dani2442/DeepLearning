@@ -1,5 +1,5 @@
 from Layer import Layer
-from ActivationFunction.Sigmoid import Sigmoid
+from Sigmoid import Sigmoid
 import numpy as np
 
 class Plain(Layer):

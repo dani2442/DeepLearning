@@ -1,5 +1,8 @@
 import numpy as np
-from ParameterLearning.Stochastic import Stochastic
+from ActivationFunction.ActivationFunction import *
+from LossFunction.LossFunction import *
+from Layer.Layer import *
+from ParameterLearning.ParameterLearning import *
 
 class NeuralNetwork(object):
     def __init__(self): 
