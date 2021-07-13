@@ -15,6 +15,8 @@ class Plain(Layer):
         self.A=np.zeros((out_size,1))
         self.O=np.zeros((out_size,1))
 
+        self.dIn=np.zeros((in_size,1))
+        
         self.ActivationFunction=Sigmoid
 
     def Forward(self,x): 
@@ -22,7 +24,11 @@ class Plain(Layer):
         self.O=self.ActivationFunction.Forward(self.A)
         return self.O
     
-    def Backward(self): pass
+    def Backward(self,O,dO): 
+        dA=self.ActivationFunction.Backward()
+        self.dW=np.dot(O,dA.T)
+        self.db=dA.sum(index=0)
+        self.dIn=np.dot(self.W,dA)
 
     def UpdateParameters(self,learningmethod):
         learningmethod.UpdateParameter(self.W,self.B,self.dW,self.dB)
