@@ -1,10 +1,10 @@
-from Layer import Layer
-from Sigmoid import Sigmoid
+from Layer.Layer import Layer
+from ActivationFunction.ActivationFunction import *
 import numpy as np
 
 class Plain(Layer):
-    def __init__(self,in_size,out_size): 
-        super().__init__(in_size,out_size,ActivationFunction=Sigmoid)
+    def __init__(self,in_size,out_size,ActivationFunction=Sigmoid): 
+        super().__init__(in_size,out_size,ActivationFunction)
 
         self.W=np.random.randn(out_size,in_size)
         self.B=np.random.randn(out_size,1)
@@ -16,8 +16,6 @@ class Plain(Layer):
         self.O=np.zeros((out_size,1))
 
         self.dIn=np.zeros((in_size,1))
-        
-        self.ActivationFunction=Sigmoid
 
     def Forward(self,x): 
         self.A=np.dot(self.W,x)+self.B
@@ -32,3 +30,4 @@ class Plain(Layer):
 
     def UpdateParameters(self,learningmethod):
         learningmethod.UpdateParameter(self.W,self.B,self.dW,self.dB)
+

@@ -1,6 +1,6 @@
 import numpy as np
-from LossFunction import *
 
+from LossFunction.LossFunction import LossFunction
 class MSE(LossFunction):
     def __init__(self): super().__init__()
 

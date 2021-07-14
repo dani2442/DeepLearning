@@ -1,6 +1,5 @@
 import numpy as np
 from ActivationFunction.ActivationFunction import ActivationFunction
-
 class Sigmoid(ActivationFunction):
     def __init__(self): super().__init__()
 

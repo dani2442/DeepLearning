@@ -1,4 +1,4 @@
-from ParameterLearning import ParameterLearning
+from ParameterLearning.ParameterLearning import ParameterLearning
 import numpy as np
 
 class Stochastic(ParameterLearning):

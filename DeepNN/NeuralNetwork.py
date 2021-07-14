@@ -5,7 +5,9 @@ from Layer.Layer import *
 from ParameterLearning.ParameterLearning import *
 
 class NeuralNetwork(object):
-    def __init__(self): 
+    def __init__(self,in_size,out_size):
+        self.in_size=in_size
+        self.out_size=out_size 
         self.layers=[]
 
     def Forward(self,x): 

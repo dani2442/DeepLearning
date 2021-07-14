@@ -19,10 +19,11 @@ def ConvertData(Y):
         Y_+=[A]
     return np.array(Y_).T
 
+X=X.T
 Y=ConvertData(Y)
 
 NN=NeuralNetwork(C,F)
-NN.AddLayer(Layer(C,5))
-NN.AddLayer(Layer(5,4))
-NN.AddLayer(Layer(3,F))
+NN.AddLayer(Plain(C,5))
+NN.AddLayer(Plain(5,4))
+NN.AddLayer(Plain(3,F))
 NN.Train(X,Y)
