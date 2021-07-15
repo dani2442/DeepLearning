@@ -20,7 +20,8 @@ class AdaGrad(ParameterLearning):
         self.A_dW = self.rho*self.A_dW + (1-self.rho)*np.square(dW)
         self.A_dB = self.rho*self.A_dB + (1-self.rho)*np.square(dB)
         
-        self.delta = self.rho*self.rho +(1-self.rho)*np.square((self.lrate*dW)/np.sqrt(self.A_dW))
+        self.delta_W = self.rho*self.delta_W +(1-self.rho)*np.square((self.lrate*dW)/np.sqrt(self.A_dW))
+        self.delta_B = self.rho*self.delta_B +(1-self.rho)*np.square((self.lrate*dB)/np.sqrt(self.A_dB))
         
-        W -= (self.lrate*dW)/np.sqrt(self.A_dW)
-        B -= (self.lrate*dB)/np.sqrt(self.A_dB)
+        W -= dW/np.sqrt(self.delta_W/self.A_dW)
+        B -= dB/np.sqrt(self.delta_B/self.A_dB)
