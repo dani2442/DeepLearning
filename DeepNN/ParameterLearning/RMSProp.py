@@ -15,8 +15,8 @@ class RMSProp(ParameterLearning):
             self.A_dB=np.zeros(B.shape)
             self.init=False
         
-        self.A_dW = self.rho*self.A_dW + (1-self.rho)*np.square(dW)
-        self.A_dB = self.rho*self.A_dB + (1-self.rho)*np.square(dB)
+        self.A_dW = self.rho*self.A_dW + (1-self.rho)*np.square(dW) + 10**(-323)
+        self.A_dB = self.rho*self.A_dB + (1-self.rho)*np.square(dB) + 10**(-323)
         
         W -= (self.lrate*dW)/np.sqrt(self.A_dW)
         B -= (self.lrate*dB)/np.sqrt(self.A_dB)
