@@ -30,17 +30,17 @@ class NeuralNetwork(object):
         for layer in self.layers:
             layer.UpdateParameters(learningmethod)
 
-    def Train(self,X,Y,iter=100,batch_size=2,learningmethod=Stochastic(),lossFunction=MSE()): # TODO: batch implementation
+    def Train(self,X,Y,iter=100,batch_size=10,learningmethod=Stochastic(),lossFunction=MSE()): # TODO: batch implementation
         self.lossFunction=lossFunction
         for it in range(iter):
             loss=0
-            for i in range(len(X)):
-                out=self.Forward(X[:,[i]])
-                loss+=self.GetLoss(out,Y[:,[i]])
-                self.Backward(X[:,[i]],out,Y[:,[i]])
+            for i in range(int(len(X[0])/batch_size)):
+                s,f=i*batch_size,(i+1)*batch_size
+                out=self.Forward(X[:,s:f])
+                loss+=self.GetLoss(out,Y[:,s:f])
+                self.Backward(X[:,s:f],out,Y[:,s:f])
                 self.UpdateParameters(learningmethod)
-            if it%40==0:
-                print(loss/len(X))
+            print(loss/len(X[0]))
 
     def AddLayer(self,layer): self.layers+=[layer]
 
