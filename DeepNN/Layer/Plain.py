@@ -22,11 +22,12 @@ class Plain(Layer):
         self.O=self.ActivationFunction.Forward(self.A)
         return self.O
     
-    def Backward(self,O,dO): 
-        dA=self.ActivationFunction.Backward()
-        self.dW=np.dot(O,dA.T)
-        self.db=dA.sum(index=0)
-        self.dIn=np.dot(self.W,dA)
+    def Backward(self,O,dO): # O: output of previous layer  dO: derivative of next layer
+        dA=self.ActivationFunction.Backward(self.O,self.A,dO)
+        self.dW=np.dot(dA,O.T)
+        self.db=np.sum(dA,axis=1,keepdims = True)
+        self.dIn=np.dot(self.W.T,dA)
+        return self.dIn
 
     def UpdateParameters(self,learningmethod):
         learningmethod.UpdateParameter(self.W,self.B,self.dW,self.dB)
