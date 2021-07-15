@@ -8,4 +8,4 @@ class LossFunction(object):
 from LossFunction.MSE import *
 from LossFunction.MAE import *
 from LossFunction.MBE import *
-from LossFunction.CrossEntropy import *
+from LossFunction.crossEntropy import *
