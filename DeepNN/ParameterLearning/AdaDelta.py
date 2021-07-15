@@ -14,7 +14,7 @@ class AdaDelta(ParameterLearning):
             self.A_dW=np.zeros(W.shape)
             self.A_dB=np.zeros(B.shape)
             self.delta_W=0
-            self-delta_B=0
+            self.delta_B=0
             self.init=False
         
         self.A_dW = self.rho*self.A_dW + (1-self.rho)*np.square(dW)
