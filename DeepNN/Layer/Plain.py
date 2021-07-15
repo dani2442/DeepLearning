@@ -29,6 +29,4 @@ class Plain(Layer):
         self.dIn=np.dot(self.W.T,dA)
         return self.dIn
 
-    def UpdateParameters(self,learningmethod):
-        learningmethod.UpdateParameter(self.W,self.B,self.dW,self.dB)
 

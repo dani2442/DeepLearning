@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 from ActivationFunction.ActivationFunction import *
 from LossFunction.LossFunction import *
 from Layer.Layer import *
@@ -26,12 +27,18 @@ class NeuralNetwork(object):
                 dIn=self.layers[i].Backward(self.layers[i-1].O,dIn)
             self.layers[0].Backward(x,self.layers[1].dIn)
 
-    def UpdateParameters(self,learningmethod): 
+    def UpdateParameters(self): 
         for layer in self.layers:
-            layer.UpdateParameters(learningmethod)
+            layer.UpdateParameters()
 
-    def Train(self,X,Y,iter=100,batch_size=10,learningmethod=Stochastic(),lossFunction=MSE()): # TODO: batch implementation
+    def SetLearningMethod(self,learningmethod):
+        for i in self.layers:
+            i.SetLearningMethod(copy.deepcopy(learningmethod))
+
+    def Train(self,X,Y,iter=100,batch_size=1,learningmethod=Stochastic(),lossFunction=MSE()): # TODO: batch implementation
         self.lossFunction=lossFunction
+        self.SetLearningMethod(learningmethod)
+
         for it in range(iter):
             loss=0
             for i in range(int(len(X[0])/batch_size)):
@@ -39,7 +46,7 @@ class NeuralNetwork(object):
                 out=self.Forward(X[:,s:f])
                 loss+=self.GetLoss(out,Y[:,s:f])
                 self.Backward(X[:,s:f],out,Y[:,s:f])
-                self.UpdateParameters(learningmethod)
+                self.UpdateParameters()
             print(loss/len(X[0]))
 
     def AddLayer(self,layer): self.layers+=[layer]

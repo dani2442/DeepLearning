@@ -1,3 +1,4 @@
+from ParameterLearning.ParameterLearning import ParameterLearning
 from NeuralNetwork import *
 import numpy as np
 from sklearn import datasets
@@ -26,4 +27,4 @@ NN=NeuralNetwork(C,F)
 NN.AddLayer(Plain(C,5))
 NN.AddLayer(Plain(5,4))
 NN.AddLayer(Plain(4,F))
-NN.Train(X,Y,1000)
+NN.Train(X,Y,1000,learningmethod=Momentum())

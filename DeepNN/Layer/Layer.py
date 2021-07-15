@@ -8,4 +8,9 @@ class Layer(object):
 
     def Backward(self): raise Exception("Layer, Backward: Function not implemented")
 
+    def SetLearningMethod(self,lm): self.learningmethod=lm
+
+    def UpdateParameters(self):
+        self.learningmethod.UpdateParameter(self.W,self.B,self.dW,self.dB)
+
 from Layer.Plain import *
