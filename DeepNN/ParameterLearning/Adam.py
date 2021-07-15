@@ -1,11 +1,12 @@
 from ParameterLearning.ParameterLearning import ParameterLearning
 import numpy as np
 
-class AdaGrad(ParameterLearning):
-    def __init__(self,learningRate=0.01,rho=0.5):
+class Adam(ParameterLearning):
+    def __init__(self,learningRate=0.01,rho=0.5,rho_f=0.5):
         super().__init__()
         self.lrate=learningRate
         self.rho=rho
+        self.rho_f=rho_f
         
         self.init=True
         
@@ -13,6 +14,8 @@ class AdaGrad(ParameterLearning):
         if self.init:
             self.A_dW=np.zeros(W.shape)
             self.A_dB=np.zeros(B.shape)
+            self.F_dW=np.zeros(W.shape)
+            self.F_dB=np.zeros(B.shape)
             self.init=False
         
         self.A_dW = self.rho*self.A_dW + (1-self.rho)*np.square(dW)
