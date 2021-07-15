@@ -31,7 +31,7 @@ class NeuralNetwork(object):
         for layer in self.layers:
             layer.UpdateParameters()
 
-    def Train(self,X,Y,iter=100,batch_size=1,learningmethod=Stochastic,lossFunction=MSE): # TODO: batch implementation
+    def Train(self,X,Y,iter=100,batch_size=1,learningmethod=Stochastic(),lossFunction=MSE): # TODO: batch implementation
         self.SetLossFunction(lossFunction)
         self.SetLearningMethod(learningmethod)
 
@@ -49,7 +49,7 @@ class NeuralNetwork(object):
 
     def SetLearningMethod(self,learningmethod):
         for i in self.layers:
-            i.SetLearningMethod(learningmethod())
+            i.SetLearningMethod(copy.deepcopy(learningmethod))
 
     def SetLossFunction(self,lossFunction): self.lossFunction=lossFunction
 

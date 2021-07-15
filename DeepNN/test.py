@@ -23,8 +23,9 @@ def ConvertData(Y):
 X=X.T
 Y=ConvertData(Y)
 
+
 NN=NeuralNetwork(C,F)
 NN.AddLayer(Plain(C,5,ReLU))
 NN.AddLayer(Plain(5,4,ReLU))
 NN.AddLayer(Plain(4,F,Sigmoid))
-NN.Train(X,Y,1000,learningmethod=Momentum)
+NN.Train(X,Y,1000,20,Momentum(0.1,0.01))
