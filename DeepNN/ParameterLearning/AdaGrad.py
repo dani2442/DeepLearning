@@ -2,10 +2,10 @@ from ParameterLearning.ParameterLearning import ParameterLearning
 import numpy as np
 
 class AdaGrad(ParameterLearning):
-    def __init__(self,learningRate=0.01,epsilon=0.001):
+    def __init__(self,learningRate=0.01):
         super().__init__()
         self.lrate=learningRate
-        self.eps=epsilon
+        self.eps=0.001
         
         self.init=True
         
@@ -15,8 +15,8 @@ class AdaGrad(ParameterLearning):
             self.A_dB=np.zeros(B.shape)
             self.init=False
         
-        self.A_dW += dW**2
-        self.A_dB += dB**2
+        self.A_dW += np.square(dW)
+        self.A_dB += np.square(dB)
         
-        W -= (self.lrate*dW)/np.sqrt(self.A_dW-self.eps)
-        B -= (self.lrate*dB)/np.sqrt(self.A_dB-self.eps)
+        W -= (self.lrate*dW)/np.sqrt(self.A_dW+self.eps)
+        B -= (self.lrate*dB)/np.sqrt(self.A_dB+self.eps)
