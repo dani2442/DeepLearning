@@ -10,7 +10,7 @@ class Adam(ParameterLearning):
         
         self.init=True
         
-    def UpdateParameter(self,W,B,dW,dB):
+    def UpdateParameter(self,W,B,dW,dB,iter):
         if self.init:
             self.A_dW=np.zeros(W.shape)
             self.A_dB=np.zeros(B.shape)
@@ -21,5 +21,10 @@ class Adam(ParameterLearning):
         self.A_dW = self.rho*self.A_dW + (1-self.rho)*np.square(dW)
         self.A_dB = self.rho*self.A_dB + (1-self.rho)*np.square(dB)
         
-        W -= (self.lrate*dW)/np.sqrt(self.A_dW)
-        B -= (self.lrate*dB)/np.sqrt(self.A_dB)
+        self.F_dW = self.rho_f*self.F_dW + (1-self.rho_f)*dW
+        self.F_dB = self.rho_f*self.F_dB + (1-self.rho_f)*dB
+        
+        self.lrate *= sqrt(1-self.rho**iter)/(1-self.rho_f**iter)
+        
+        W -= (self.lrate*self.F_dW)/np.sqrt(self.A_dW)
+        B -= (self.lrate*self.F_dB)/np.sqrt(self.A_dB)
