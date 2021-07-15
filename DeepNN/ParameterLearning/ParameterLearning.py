@@ -4,3 +4,7 @@ class ParameterLearning(object):
 from ParameterLearning.Stochastic import *
 from ParameterLearning.Momentum import *
 from ParameterLearning.AdaGrad import *
+from ParameterLearning.RMSProp import *
+from ParameterLearning.Adam import *
+from ParameterLearning.AdaDelta import *
+from ParameterLearning.Nesterov import *
