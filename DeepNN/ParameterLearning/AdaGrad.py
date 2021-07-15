@@ -2,10 +2,10 @@ from ParameterLearning.ParameterLearning import ParameterLearning
 import numpy as np
 
 class AdaGrad(ParameterLearning):
-    def __init__(self,learningRate=0.01):
+    def __init__(self,learningRate=0.01,epsilon=0.001):
         super().__init__()
         self.lrate=learningRate
-        self.eps=0.001
+        self.eps=epsilon
         
         self.init=True
         
