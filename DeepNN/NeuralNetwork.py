@@ -43,7 +43,7 @@ class NeuralNetwork(object):
                 loss+=self.GetLoss(out,Y[:,s:f])
                 self.Backward(X[:,s:f],out,Y[:,s:f])
                 self.UpdateParameters()
-            print(loss/len(X[0]))
+            if it%10==0:print(loss/len(X[0]))
 
     def AddLayer(self,layer): self.layers+=[layer]
 
