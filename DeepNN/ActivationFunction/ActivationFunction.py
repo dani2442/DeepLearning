@@ -9,3 +9,4 @@ class ActivationFunction(object):
 
 from ActivationFunction.Sigmoid import *
 from ActivationFunction.ReLU import *
+from ActivationFunction.Tanh import *
