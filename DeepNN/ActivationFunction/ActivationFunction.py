@@ -8,3 +8,4 @@ class ActivationFunction(object):
     def Backward(output,a, dO): raise Exception("Function not impolemented")
 
 from ActivationFunction.Sigmoid import *
+from ActivationFunction.ReLU import *

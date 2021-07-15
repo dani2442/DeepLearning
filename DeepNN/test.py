@@ -24,7 +24,7 @@ X=X.T
 Y=ConvertData(Y)
 
 NN=NeuralNetwork(C,F)
-NN.AddLayer(Plain(C,5))
-NN.AddLayer(Plain(5,4))
-NN.AddLayer(Plain(4,F))
-NN.Train(X,Y,1000,learningmethod=Momentum())
+NN.AddLayer(Plain(C,5,ReLU))
+NN.AddLayer(Plain(5,4,ReLU))
+NN.AddLayer(Plain(4,F,Sigmoid))
+NN.Train(X,Y,1000,learningmethod=Momentum)
