@@ -1,7 +1,7 @@
 from ParameterLearning.ParameterLearning import ParameterLearning
 import numpy as np
 
-class AdaGrad(ParameterLearning):
+class AdaDelta(ParameterLearning):
     def __init__(self,learningRate=0.01,rho=0.5):
         super().__init__()
         self.lrate=learningRate
