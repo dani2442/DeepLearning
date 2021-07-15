@@ -4,6 +4,8 @@ from LossFunction.LossFunction import LossFunction
 class MSE(LossFunction):
     def __init__(self): super().__init__()
 
-    def Loss(self,output,y): return np.square(output-y)/2
+    @staticmethod
+    def Loss(output,y): return np.square(output-y)/2
 
-    def Backward(self,output,y): return output-y
+    @staticmethod
+    def Backward(output,y): return output-y

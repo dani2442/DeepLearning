@@ -13,6 +13,7 @@ class NeuralNetwork(object):
     def Forward(self,x): 
         for i in range(len(self.layers)):
             x=self.layers[i].Forward(x)
+        return x
 
     def Backward(self,output,y): 
         dO=self.lossFunction.Backward(output,y)
@@ -23,7 +24,8 @@ class NeuralNetwork(object):
         for layer in self.layers:
             layer.UpdateParameters(learningmethod)
 
-    def Train(self,X,Y,iter=10,batch_size=2,learningmethod=Stochastic): # TODO: batch implementation
+    def Train(self,X,Y,iter=10,batch_size=2,learningmethod=Stochastic,lossFunction=MSE): # TODO: batch implementation
+        self.lossFunction=MSE
         for it in range(iter):
             loss=0
             for i in range(len(X)):
