@@ -1,7 +1,7 @@
 import numpy as np
 
 from LossFunction.LossFunction import LossFunction
-class crossEntropy(LossFunction):
+class CrossEntropy(LossFunction):
     def __init__(self): super().__init__()
 
     @staticmethod
