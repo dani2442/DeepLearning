@@ -24,7 +24,9 @@ class Adam(ParameterLearning):
         self.F_dW = self.rho_f*self.F_dW + (1-self.rho_f)*dW
         self.F_dB = self.rho_f*self.F_dB + (1-self.rho_f)*dB
         
-        self.lrate *= sqrt(1-self.rho**iter)/(1-self.rho_f**iter)
+        self.lrate *= np.sqrt(1-self.rho**iter)/(1-self.rho_f**iter)
         
         W -= (self.lrate*self.F_dW)/np.sqrt(self.A_dW)
         B -= (self.lrate*self.F_dB)/np.sqrt(self.A_dB)
+
+        return W,B

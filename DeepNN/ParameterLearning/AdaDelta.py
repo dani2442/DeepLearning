@@ -25,3 +25,5 @@ class AdaDelta(ParameterLearning):
         
         W -= dW/np.sqrt(self.delta_W/self.A_dW)
         B -= dB/np.sqrt(self.delta_B/self.A_dB)
+
+        return W,B
