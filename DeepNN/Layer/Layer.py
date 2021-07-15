@@ -11,6 +11,6 @@ class Layer(object):
     def SetLearningMethod(self,lm): self.learningmethod=lm
 
     def UpdateParameters(self):
-        self.learningmethod.UpdateParameter(self.W,self.B,self.dW,self.dB)
+        self.W,self.B=self.learningmethod.UpdateParameter(self.W,self.B,self.dW,self.dB)
 
 from Layer.Plain import *

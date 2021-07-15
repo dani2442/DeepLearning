@@ -20,3 +20,5 @@ class AdaGrad(ParameterLearning):
         
         W -= (self.lrate*dW)/np.sqrt(self.A_dW+self.eps)
         B -= (self.lrate*dB)/np.sqrt(self.A_dB+self.eps)
+
+        return W,B

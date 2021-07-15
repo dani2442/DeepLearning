@@ -1,6 +1,7 @@
 import numpy as np
-
 from LossFunction.LossFunction import LossFunction
+
+# Only for Sigmoid in previous layer
 class MBE(LossFunction):
     def __init__(self): super().__init__()
 

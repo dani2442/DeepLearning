@@ -20,4 +20,6 @@ class Momentum(ParameterLearning):
         
         W += self.V_dW
         B += self.V_dB
+
+        return W,B
         
