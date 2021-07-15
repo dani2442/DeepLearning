@@ -1,7 +1,6 @@
 from Layer.Layer import Layer
 from ActivationFunction.ActivationFunction import *
 import numpy as np
-
 class Plain(Layer):
     def __init__(self,in_size,out_size,ActivationFunction=Sigmoid): 
         super().__init__(in_size,out_size,ActivationFunction)
