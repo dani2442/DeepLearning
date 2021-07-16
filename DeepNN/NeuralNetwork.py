@@ -12,6 +12,7 @@ class NeuralNetwork(object):
         self.in_size=in_size
         self.out_size=out_size 
         self.layers=[]
+        self.loss=[]
 
     def Forward(self,x): 
         for i in range(len(self.layers)):
@@ -34,6 +35,7 @@ class NeuralNetwork(object):
             layer.UpdateParameters()
 
     def Init(self,initializer=Xavier()): 
+        self.loss=[]
         for i in self.layers:
             i.Init(initializer)
 
@@ -49,7 +51,7 @@ class NeuralNetwork(object):
                 loss+=self.GetLoss(out,Y[:,s:f])
                 self.Backward(X[:,s:f],out,Y[:,s:f])
                 self.UpdateParameters()
-            if it%10==0:print(loss/len(X[0]))
+            self.loss+=[loss/len(X[0])]
 
     def AddLayer(self,layer): self.layers+=[layer]
 
@@ -100,6 +102,7 @@ class NeuralNetwork(object):
 
         self.in_size=self.layers[0].in_size
         self.out_size=self.layers[-1].out_size
+        self.loss=[]
 
     @staticmethod
     def Export2(nn,path):

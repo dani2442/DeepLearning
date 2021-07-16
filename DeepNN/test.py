@@ -22,12 +22,13 @@ def ConvertData(Y):
 X=X.T
 Y=ConvertData(Y)
 
+Initializer.SetGenerator(123) # Set generator for initializer
 
 NN=NeuralNetwork(C,F)
 NN.AddLayer(Plain(C,5,ReLU))
 NN.AddLayer(Plain(5,4,ReLU))
 NN.AddLayer(Plain(4,F,Sigmoid))
-NN.Init(Normal(0,2))
+NN.Init(Xavier())
 NN.Train(X,Y,1000,10,Stochastic(0.01,0.1),MSE)
 
 #NN.Export("nn_test.json")

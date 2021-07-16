@@ -9,4 +9,4 @@ class Tanh(ActivationFunction):
 
     @staticmethod
     def Backward(output,a,dO): 
-        return 1-np.square(output)
+        return (1-np.square(output))*dO

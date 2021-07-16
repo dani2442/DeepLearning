@@ -1,0 +1,347 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\date{}
+\usepackage[colorlinks=true, urlcolor=blue]{hyperref}
+\usepackage{cancel}
+\setlength{\fboxrule}{1mm} 
+\setlength{\fboxsep}{6mm}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2.25cm
+\topmargin 2.5cm
+\rightmargin 2.25cm
+\bottommargin 2.5cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip smallskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\noindent
+\align center
+
+\series bold
+\size larger
+Logistic Regression
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Logistic regression is a probabilistic model that classifies the instances
+ in terms of probabilities.
+ Because the classification is probabilistic, a natural approach for optimizing
+ the parameters is to ensure that the predicted probability of the observed
+ class for each training instance is as large as possible.
+ This goal is achieved by using the notion of maximum likelihood estimation
+ in order to learn the parameters of the model.
+ The likelihood of the training data is defined as the product of the probabilit
+ies of the observed labels of each training instance.
+ Clearly, larger values of this objective function are better.
+ By using the negative logarithm of this value, one obtains a loss function
+ in minimization form.
+ Therefore, the output node uses the negative log-likelihood as a loss function.
+ This loss function replaces the squared error used in the Widrow-Hoff method.
+ The output layer can be formulated with the sigmoid activation function,
+ which is very common in neural network design.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $(\overline{X_{1}},y_{1})\dots(\overline{X_{n}},y_{n})$
+\end_inset
+
+ be a set of 
+\begin_inset Formula $n$
+\end_inset
+
+ training pairs in which 
+\begin_inset Formula $\overline{X_{i}}$
+\end_inset
+
+ contains the 
+\begin_inset Formula $d$
+\end_inset
+
+-dimensional features and 
+\begin_inset Formula $y_{i}\in\{-1,+1\}$
+\end_inset
+
+ is a binary class variable.
+ As in the case of a perceptron, a single-layer architecture with weights
+ 
+\begin_inset Formula $\overline{W}=(w_{1}\dots w_{d})$
+\end_inset
+
+ is used.
+ Instead of using the hard sign activation on 
+\begin_inset Formula $\overline{W}\cdot\overline{X_{i}}$
+\end_inset
+
+ to predict 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+, logistic regression applies the soft sigmoid function to 
+\begin_inset Formula $\overline{W}\cdot\overline{X_{i}}$
+\end_inset
+
+ in order to estimate the probability that 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ is 1,
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+
+\series bold
+\size large
+\begin_inset Formula $\hat{y}_{i}=P(y_{i}=1)=\frac{1}{1+exp(-\overline{W}\cdot\overline{X_{i}})}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For a test instance, it can be predicted to the class whose predicted probabilit
+y is greater than 
+\begin_inset Formula $0.5$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $P(y_{i}=1)$
+\end_inset
+
+ is 0.5 when 
+\begin_inset Formula $\overline{W}\cdot\overline{X_{i}}=0$
+\end_inset
+
+, and 
+\begin_inset Formula $\overline{X_{i}}$
+\end_inset
+
+ lies on the separating hiperplane.
+ Moving 
+\begin_inset Formula $\overline{X_{i}}$
+\end_inset
+
+ in either direction from the hyperplane results in different signs of 
+\begin_inset Formula $\overline{W}\cdot\overline{X_{i}}$
+\end_inset
+
+ and corresponding movements in the probability values.
+ Therefore, the sign of 
+\begin_inset Formula $\overline{W}\cdot\overline{X_{i}}$
+\end_inset
+
+ also yields the same prediction as picking the class with probability larger
+ than 0.5.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We will now describe how the loss function corresponding to likelihood estimatio
+n is set up.
+ This methodology is important because it is used widely in many neural
+ models.
+ For positive samples in the training data, we want to maximize 
+\begin_inset Formula $P(y_{i}=1)$
+\end_inset
+
+ and for negative samples, we want to maximize 
+\begin_inset Formula $P(y_{i}=−1)$
+\end_inset
+
+.
+ For positive samples satisfying 
+\begin_inset Formula $y_{i}=1$
+\end_inset
+
+, one wants to maximize 
+\begin_inset Formula $\hat{y}_{i}$
+\end_inset
+
+ and for negative samples satisfying 
+\begin_inset Formula $\hat{y}_{i}=-1$
+\end_inset
+
+, one wants to maximize 
+\begin_inset Formula $1-\hat{y}_{i}$
+\end_inset
+
+ .
+ One can write this casewise maximization in the form of a consolidated
+ expression ofalways maximizing 
+\begin_inset Formula $|\frac{y_{i}}{2}-\frac{1}{2}+\hat{y}_{i}|$
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The products of these probabilities must be maximized over all training
+ instances to maximize the likelihood 
+\begin_inset Formula $\mathcal{L}$
+\end_inset
+
+, 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\bullet$
+\end_inset
+
+ 
+\begin_inset Formula $\mathcal{L}=\underset{i=1}{\overset{n}{\prod}}|\frac{y_{i}}{2}-\frac{1}{2}+\hat{y}_{i}|\Rightarrow-\log(\mathcal{L})=\underset{i=1}{\overset{n}{\sum}}-\log(|\frac{y_{i}}{2}-\frac{1}{2}+\hat{y}_{i}|)=\underset{i=1}{\overset{n}{\sum}}L_{i}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Additive forms fo the objective function are particularly convenient for
+ the types of stochastic gradient updates that are common in neural networks.
+ For each training instance, the predicted probability 
+\begin_inset Formula $\hat{y}_{i}$
+\end_inset
+
+ is computed by passing it through the neural network, and the loss is used
+ to determine the gradient for each training instance.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The gradient of 
+\begin_inset Formula $L_{i}$
+\end_inset
+
+ with respect to the weights in 
+\begin_inset Formula $\overline{W}$
+\end_inset
+
+ can be computed as follows:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+
+\series bold
+\size larger
+\begin_inset Formula $\frac{\partial L_{i}}{\partial\overline{W}}=-\frac{sign(\frac{y_{i}}{2}-\frac{1}{2}+\hat{y}_{i})}{|\frac{y_{i}}{2}-\frac{1}{2}+\hat{y}_{i}|}\cdot\frac{\partial\hat{y}_{i}}{\partial\overline{W}}$
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

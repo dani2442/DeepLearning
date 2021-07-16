@@ -2,7 +2,7 @@ from ParameterLearning.ParameterLearning import ParameterLearning
 import numpy as np
 
 class Momentum(ParameterLearning):
-    def __init__(self,learningRate=0.01,momentumParam=0.2,regRate=0):
+    def __init__(self,learningRate=0.01,momentumParam=0.1,regRate=0):
         super().__init__(regRate)
         self.lrate=learningRate
         self.mparam=momentumParam
