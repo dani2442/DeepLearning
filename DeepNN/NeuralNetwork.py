@@ -5,6 +5,7 @@ from ActivationFunction.ActivationFunction import *
 from LossFunction.LossFunction import *
 from Layer.Layer import *
 from ParameterLearning.ParameterLearning import *
+from Initializers.Initializer import *
 
 class NeuralNetwork(object):
     def __init__(self,in_size,out_size):
@@ -32,6 +33,10 @@ class NeuralNetwork(object):
         for layer in self.layers:
             layer.UpdateParameters()
 
+    def Init(self,initializer=Xavier()): 
+        for i in self.layers:
+            i.Init(initializer)
+
     def Train(self,X,Y,iter=100,batch_size=1,learningmethod=Stochastic(),lossFunction=MSE): # TODO: batch implementation
         self.SetLossFunction(lossFunction)
         self.SetLearningMethod(learningmethod)
@@ -47,6 +52,8 @@ class NeuralNetwork(object):
             if it%10==0:print(loss/len(X[0]))
 
     def AddLayer(self,layer): self.layers+=[layer]
+
+    def SetInitializer(self,initializer): self.initializer=initializer
 
     def SetLearningMethod(self,learningmethod):
         for i in self.layers:
@@ -103,7 +110,3 @@ class NeuralNetwork(object):
         nn=NeuralNetwork(0,0)
         nn.Import(path)
         return nn
-            
-
-
-            

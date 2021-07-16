@@ -4,11 +4,15 @@ class Layer(object):
         self.in_size=in_size
         self.out_size=out_size
 
+    def Init(self,initializer): raise Exception("Layer, Init: Function not implemented")
+
     def Forward(self,x): raise Exception("Layer, Forward: Function not implemented")
 
     def Backward(self): raise Exception("Layer, Backward: Function not implemented")
 
     def SetLearningMethod(self,lm): self.learningmethod=lm
+
+    
 
     def UpdateParameters(self):
         self.W,self.B=self.learningmethod.UpdateParameter(self.W,self.B,self.dW,self.dB)

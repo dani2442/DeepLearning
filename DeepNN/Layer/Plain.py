@@ -5,9 +5,6 @@ class Plain(Layer):
     def __init__(self,in_size,out_size,ActivationFunction=Sigmoid): 
         super().__init__(in_size,out_size,ActivationFunction)
 
-        self.W=np.random.randn(out_size,in_size)
-        self.B=np.random.randn(out_size,1)
-
         self.dW=np.zeros((out_size,in_size))
         self.dB=np.zeros((out_size,1))
 
@@ -15,6 +12,10 @@ class Plain(Layer):
         self.O=np.zeros((out_size,1))
 
         self.dIn=np.zeros((in_size,1))
+
+    def Init(self,initializer):
+        self.W=initializer.Init((self.out_size,self.in_size))
+        self.B=initializer.Init((self.out_size,1))
 
     def Forward(self,x): 
         self.A=np.dot(self.W,x)+self.B

@@ -8,6 +8,6 @@ class Stochastic(ParameterLearning):
 
     def UpdateParameter(self,W,B,dW,dB):
         W-=self.lrate*(self.regRate*W+dW)
-        B-=self.lrate*(self.regRate*B+dW)
+        B-=self.lrate*(self.regRate*B+dB)
 
         return W,B
