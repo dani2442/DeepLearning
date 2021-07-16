@@ -73,10 +73,6 @@ class NeuralNetwork(object):
             layers+=[layer]
         json.dump(layers, codecs.open(path, 'w', encoding='utf-8'), separators=(',', ':'), sort_keys=True, indent=4)
 
-    @staticmethod
-    def Export2(nn,path):
-        nn.Export(path)
-
     def Import(self,path): 
         obj_text = codecs.open(path, 'r', encoding='utf-8').read()
         obj=json.loads(obj_text)
@@ -97,6 +93,10 @@ class NeuralNetwork(object):
 
         self.in_size=self.layers[0].in_size
         self.out_size=self.layers[-1].out_size
+
+    @staticmethod
+    def Export2(nn,path):
+        nn.Export(path)
 
     @staticmethod
     def Import2(path):

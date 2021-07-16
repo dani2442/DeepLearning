@@ -2,8 +2,8 @@ from ParameterLearning.ParameterLearning import ParameterLearning
 import numpy as np
 
 class AdaDelta(ParameterLearning):
-    def __init__(self,learningRate=0.005,rho=0.25,epsilon=0.001):
-        super().__init__()
+    def __init__(self,learningRate=0.005,rho=0.25,epsilon=0.001,regRate=0):
+        super().__init__(regRate)
         self.lrate=learningRate
         self.rho=rho
         self.eps=epsilon
@@ -24,7 +24,7 @@ class AdaDelta(ParameterLearning):
         self.delta_W = self.rho*self.delta_W +(1-self.rho)*np.square(self.lrate*dW)/(self.A_dW+self.eps)
         self.delta_B = self.rho*self.delta_B +(1-self.rho)*np.square(self.lrate*dB)/(self.A_dB+self.eps)
         
-        W -= dW*np.sqrt(self.delta_W/(self.A_dW+self.eps))
-        B -= dB*np.sqrt(self.delta_B/(self.A_dB+self.eps))
+        W -=self.regRate*self.lrate*W+ dW*np.sqrt(self.delta_W/(self.A_dW+self.eps))
+        B -=self.regRate*self.lrate*B+ dB*np.sqrt(self.delta_B/(self.A_dB+self.eps))
 
         return W,B

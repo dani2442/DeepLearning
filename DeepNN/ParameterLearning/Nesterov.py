@@ -2,8 +2,8 @@ from ParameterLearning.ParameterLearning import ParameterLearning
 import numpy as np
 
 class Nesterov(ParameterLearning):
-    def __init__(self,learningRate=0.01,beta=0.9):
-        super().__init__()
+    def __init__(self,learningRate=0.01,beta=0.9,regRate=0):
+        super().__init__(regRate)
         self.beta=beta
         self.lrate=learningRate
 

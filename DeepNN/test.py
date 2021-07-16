@@ -29,5 +29,5 @@ NN.AddLayer(Plain(5,4,ReLU))
 NN.AddLayer(Plain(4,F,Sigmoid))
 #NN.Train(X,Y,1000,10,RMSProp(),MSE)
 
-NN.Export("nn_test.json")
-NN.Import("nn_test.json")
+#NN.Export("nn_test.json")
+#NN.Import("nn_test.json")

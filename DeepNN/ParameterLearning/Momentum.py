@@ -2,8 +2,8 @@ from ParameterLearning.ParameterLearning import ParameterLearning
 import numpy as np
 
 class Momentum(ParameterLearning):
-    def __init__(self,learningRate=0.01,momentumParam=0.2):
-        super().__init__()
+    def __init__(self,learningRate=0.01,momentumParam=0.2,regRate=0):
+        super().__init__(regRate)
         self.lrate=learningRate
         self.mparam=momentumParam
 
@@ -18,8 +18,8 @@ class Momentum(ParameterLearning):
         self.V_dW = self.V_dW*self.mparam-self.lrate*dW
         self.V_dB = self.V_dB*self.mparam-self.lrate*dB
         
-        W += self.V_dW
-        B += self.V_dB
+        W += self.V_dW - self.lrate*self.regRate*W
+        B += self.V_dB - self.lrate*self.regRate*B
 
         return W,B
         

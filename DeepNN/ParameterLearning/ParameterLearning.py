@@ -1,4 +1,6 @@
 class ParameterLearning(object):
+    def __init__(self,regRate): self.regRate=regRate
+
     def UpdateParameter(self,W,B,dW,dB): raise Exception("ParameterLeraning: Function not implemented")
 
 from ParameterLearning.Stochastic import *
