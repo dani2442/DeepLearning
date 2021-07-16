@@ -1,3 +1,4 @@
+from os import stat
 import numpy as np
 import codecs,json,copy
 from ActivationFunction.ActivationFunction import *
@@ -55,28 +56,54 @@ class NeuralNetwork(object):
 
     def GetLoss(self,output,y): return self.lossFunction.Loss(output,y)
 
-    def Save(self,path): 
+    def Export(self,path): 
         layers=[]
         for i in self.layers:
             layer=dict()
-            layer["ActivationFunction"]=None
+
+            if i.ActivationFunction==Sigmoid: layer["ActivationFunction"]="Sigmoid"
+            elif i.ActivationFunction==Tanh: layer["ActivationFunction"]="Tanh"
+            elif i.ActivationFunction==ReLU: layer["ActivationFunction"]="ReLU"
+
             if type(i)==Plain:
-                layer["TypeLayer"]=None
+                layer["TypeLayer"]="Plain"
                 layer["W"]=i.W.tolist()
                 layer["B"]=i.B.tolist()
 
             layers+=[layer]
         json.dump(layers, codecs.open(path, 'w', encoding='utf-8'), separators=(',', ':'), sort_keys=True, indent=4)
 
-    def Read(self,path): 
+    @staticmethod
+    def Export2(nn,path):
+        nn.Export(path)
+
+    def Import(self,path): 
         obj_text = codecs.open(path, 'r', encoding='utf-8').read()
         obj=json.loads(obj_text)
         self.layers=[]
         for i in obj:
             if i["TypeLayer"]=="Plain":
-                l=Plain()
-                l.W=np.array(i["W"])
-                l.B=np.array(i["B"])
-                
+                W=np.array(i["W"])
+                B=np.array(i["B"])
+                l=Plain(len(W[0]),len(W))
+                l.W=W
+                l.B=B
+            
+            if i["ActivationFunction"]=="Sigmoid": l.ActivationFunction=Sigmoid
+            elif i["ActivationFunction"]=="Tanh": l.ActivationFunction=Tanh
+            elif i["ActivationFunction"]=="ReLU": l.ActivationFunction=ReLU
+
+            self.layers+=[l]
+
+        self.in_size=self.layers[0].in_size
+        self.out_size=self.layers[-1].out_size
+
+    @staticmethod
+    def Import2(path):
+        nn=NeuralNetwork(0,0)
+        nn.Import(path)
+        return nn
+            
+
 
             
