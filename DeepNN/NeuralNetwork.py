@@ -1,5 +1,5 @@
 import numpy as np
-import copy
+import codecs,json,copy
 from ActivationFunction.ActivationFunction import *
 from LossFunction.LossFunction import *
 from Layer.Layer import *
@@ -54,3 +54,29 @@ class NeuralNetwork(object):
     def SetLossFunction(self,lossFunction): self.lossFunction=lossFunction
 
     def GetLoss(self,output,y): return self.lossFunction.Loss(output,y)
+
+    def Save(self,path): 
+        layers=[]
+        for i in self.layers:
+            layer=dict()
+            layer["ActivationFunction"]=None
+            if type(i)==Plain:
+                layer["TypeLayer"]=None
+                layer["W"]=i.W.tolist()
+                layer["B"]=i.B.tolist()
+
+            layers+=[layer]
+        json.dump(layers, codecs.open(path, 'w', encoding='utf-8'), separators=(',', ':'), sort_keys=True, indent=4)
+
+    def Read(self,path): 
+        obj_text = codecs.open(path, 'r', encoding='utf-8').read()
+        obj=json.loads(obj_text)
+        self.layers=[]
+        for i in obj:
+            if i["TypeLayer"]=="Plain":
+                l=Plain()
+                l.W=np.array(i["W"])
+                l.B=np.array(i["B"])
+                
+
+            
