@@ -33,3 +33,5 @@ NN.Train(X,Y,1000,10,Stochastic(0.01,0.1),MSE)
 
 #NN.Export("nn_test.json")
 #NN.Import("nn_test.json")
+
+# prueba
