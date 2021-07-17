@@ -1,0 +1,7 @@
+https://www.kaggle.com/datasets
+
+https://www.reddit.com/r/bigquery/wiki/datasets
+
+https://www.ics.uci.edu/~smyth/courses/cs175/text_data_sets.html
+
+https://datasetsearch.research.google.com/
