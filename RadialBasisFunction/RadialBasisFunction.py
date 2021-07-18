@@ -35,6 +35,7 @@ class RadialBasisFunction(object):
         return sum(dis)/(len(mu)*len(mu)-len(mu))
 
     def TrainHiddenLayer(self,X,iter): # Unsupervised 
+        X=np.copy(X)
         self.mu=X[:,:self.h_size]
 
         clusters=[[] for i in range(self.h_size)]
@@ -44,13 +45,13 @@ class RadialBasisFunction(object):
             for i in range(len(clusters)):
                 vec=np.zeros((self.in_size,1))
                 for j in range(len(clusters[i])):
-                    vec+=X[:,clusters[i][j]]
+                    vec+=X[:,[clusters[i][j]]]
                 vec/=len(clusters[i])
                 self.mu[:,[i]]=vec
         
-        sigma=RadialBasisFunction.MaxDistante(self.mu)/np.sqrt(self.h_size)
+        self.sigma=RadialBasisFunction.MaxDistante(self.mu)/np.sqrt(self.h_size)
         #sigma=2*RadialBasisFunction.AverageDistance(self.mu)
-
+        return 
 
     def TrainOutputLayer(self,X,Y,batch_size,iter,lrate,lambd): # Supervised
         for it in range(iter):
@@ -59,26 +60,26 @@ class RadialBasisFunction(object):
                 x=X[:,i*batch_size:(i+1)*batch_size]
                 y=Y[:,i*batch_size:(i+1)*batch_size]
                 output=self.Forward(x)
-                self.dW=np.dot(self.H,output-Y)
-                self.W-=lrate*lambd*self.W+lrate*self.dW
+                self.dW=np.dot(output-y,self.H.T)
+                self.W-=lrate*self.dW #lrate*lambd*self.W
                 loss+=self.Loss(output,y)
             print(loss/len(X[0]))
 
-    def Train(self,X,Y,batch_size=5,iter=100,lrate=0.01,lambd=0.1): 
+    def Train(self,X,Y,batch_size=1,iter=100,lrate=0.001,lambd=0.01): 
         self.TrainHiddenLayer(X,iter)
         self.TrainOutputLayer(X,Y,batch_size,iter,lrate,lambd)
 
     def Loss(self,output,y):
-        np.sum(np.square(output-y)/2) #+self.lambd/2*np.sum(np.square(self.W))
+        return np.sum(np.square(output-y)) #+self.lambd/2*np.sum(np.square(self.W))
 
     def Forward(self,x):
         a=np.array([x])-np.array([self.mu]).T
-        print(a)
+        #print(a)
         b= np.sum(np.square(a),axis=1)
-        print(b)
+        #print(b)
         self.A =b/(2*np.square(self.sigma))
         # self.A =np.sum(np.square(np.array([x])-np.array([self.mu.T]).T),axis=1)/(2*np.square(self.sigma))
-        print(self.A)
+        #print(self.A)
         self.H = np.exp(self.A)
         self.O = np.dot(self.W,self.H)
         return self.O

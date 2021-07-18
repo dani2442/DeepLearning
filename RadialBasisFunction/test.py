@@ -3,7 +3,7 @@ import numpy as np
 from sklearn import datasets
 
 C=3
-F=1
+F=2
 X,Y = datasets.make_classification(
     n_features=C,
     n_classes=F,
@@ -12,16 +12,8 @@ X,Y = datasets.make_classification(
     n_clusters_per_class=1
 )
 
-def ConvertData(Y):
-    Y_=[]
-    for i in range(len(Y)):
-        A=np.zeros((F))
-        A[Y[i]]=1.0
-        Y_+=[A]
-    return np.array(Y_).T
-
 X=X.T
-Y=ConvertData(Y)
+Y=np.array([Y])
 
 
 RBF =RadialBasisFunction(C,4)
