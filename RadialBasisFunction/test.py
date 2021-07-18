@@ -17,4 +17,4 @@ Y=np.array([Y])
 
 
 RBF =RadialBasisFunction(C,4)
-RBF.Train(X,Y)
+RBF.Train(X,Y,5,100)

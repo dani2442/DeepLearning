@@ -5,14 +5,8 @@ class RadialBasisFunction(object):
         self.in_size=in_size
         self.h_size=h_size
 
-        self.lambd=0.01 # Regularization
-
-        self.MAX_it=100
-
         self.mu=np.random.randn(self.h_size,self.in_size)
-        #self.mu=np.array([[1,4,7,10],[2,5,8,11],[3,6,9,12]])
         self.sigma=np.random.randn(self.h_size,1)
-        #self.sigma=np.array([[1,2,3,4]]).T
 
         self.W=np.random.randn(1,self.h_size)
 
@@ -40,7 +34,7 @@ class RadialBasisFunction(object):
 
         clusters=[[] for i in range(self.h_size)]
         for it in range(iter):
-            for i in range(len(X[0])):
+            for i in range(min(150,len(X[0]))): # limit the number of samples in training hidden layer
                 clusters[RadialBasisFunction.SortestDistante(self.mu,X[:,[i]])]+=[i]
             for i in range(len(clusters)):
                 vec=np.zeros((self.in_size,1))
@@ -49,8 +43,8 @@ class RadialBasisFunction(object):
                 vec/=len(clusters[i])
                 self.mu[:,[i]]=vec
         
-        self.sigma=RadialBasisFunction.MaxDistante(self.mu)/np.sqrt(self.h_size)
-        #sigma=2*RadialBasisFunction.AverageDistance(self.mu)
+        self.sigma=RadialBasisFunction.MaxDistante(self.mu)/np.sqrt(self.h_size) # We could select two different sigmas
+        # sigma=2*RadialBasisFunction.AverageDistance(self.mu) 
         return 
 
     def TrainOutputLayer(self,X,Y,batch_size,iter,lrate,lambd): # Supervised
@@ -61,25 +55,19 @@ class RadialBasisFunction(object):
                 y=Y[:,i*batch_size:(i+1)*batch_size]
                 output=self.Forward(x)
                 self.dW=np.dot(output-y,self.H.T)
-                self.W-=lrate*self.dW #lrate*lambd*self.W
+                self.W-=lrate*self.dW +lrate*lambd*self.W
                 loss+=self.Loss(output,y)
             print(loss/len(X[0]))
 
-    def Train(self,X,Y,batch_size=1,iter=100,lrate=0.001,lambd=0.01): 
+    def Train(self,X,Y,batch_size=1,iter=100,lrate=0.01,lambd=0.01): 
         self.TrainHiddenLayer(X,iter)
         self.TrainOutputLayer(X,Y,batch_size,iter,lrate,lambd)
 
     def Loss(self,output,y):
-        return np.sum(np.square(output-y)) #+self.lambd/2*np.sum(np.square(self.W))
+        return np.sum(np.square(output-y)) # +self.lambd/2*np.sum(np.square(self.W))
 
     def Forward(self,x):
-        a=np.array([x])-np.array([self.mu]).T
-        #print(a)
-        b= np.sum(np.square(a),axis=1)
-        #print(b)
-        self.A =b/(2*np.square(self.sigma))
-        # self.A =np.sum(np.square(np.array([x])-np.array([self.mu.T]).T),axis=1)/(2*np.square(self.sigma))
-        #print(self.A)
+        self.A = np.sum(np.square(np.array([x])-np.array([self.mu]).T),axis=1)/(2*np.square(self.sigma))
         self.H = np.exp(self.A)
         self.O = np.dot(self.W,self.H)
         return self.O
