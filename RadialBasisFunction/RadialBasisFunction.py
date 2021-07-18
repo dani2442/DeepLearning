@@ -7,7 +7,7 @@ class RadialBasisFunction(object):
 
         self.MAX_it=100
 
-        #self.mu=np.random.randn(self.h_size,1)
+        #self.mu=np.random.randn(self.h_size,self.in_size)
         self.mu=np.array([[1,4,7,10],[2,5,8,11],[3,6,9,12]])
         #self.sigma=np.random.randn(self.h_size,1)
         self.sigma=np.array([[1,2,3,4]]).T
@@ -19,10 +19,18 @@ class RadialBasisFunction(object):
         return np.argmin(d)
 
     def MaxDistante(mu):
-        pass
+        dis=np.zeros((len(mu),len(mu)))
+        for i in range(len(mu)):
+            for j in range(i):
+                dis[i,j]=np.sum(np.square(mu[:,i]-mu[:,j]))
+        return np.max(dis)
 
     def AverageDistance(mu):
-        pass
+        dis=np.zeros((len(mu),len(mu)))
+        for i in range(len(mu)):
+            for j in range(i):
+                dis[i,j]=np.sum(np.square(mu[:,i]-mu[:,j]))
+        return sum(dis)/(len(mu)*len(mu)-len(mu))
 
     def TrainHiddenLayer(self,X): # Unsupervised 
         self.mu=X[:,:self.h_size]
