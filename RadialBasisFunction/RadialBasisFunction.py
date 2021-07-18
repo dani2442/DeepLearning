@@ -18,13 +18,29 @@ class RadialBasisFunction(object):
         d=np.sum(np.square(mu-x),axis=0)
         return np.argmin(d)
 
+    def MaxDistante(mu):
+        pass
+
+    def AverageDistance(mu):
+        pass
+
     def TrainHiddenLayer(self,X): # Unsupervised 
         self.mu=X[:,:self.h_size]
 
         clusters=[[] for i in range(self.h_size)]
-        for i in range(self.MAX_it):
+        for it in range(self.MAX_it):
+            for i in range(len(X[0])):
+                clusters[RadialBasisFunction.SortestDistante(self.mu,X[:,[i]])]+=[i]
+            for i in range(len(clusters)):
+                vec=np.zeros((self.in_size,1))
+                for j in range(len(clusters[i])):
+                    vec+=X[:,clusters[i][j]]
+                vec/=len(clusters[i])
+                self.mu[:,[i]]=vec
+        
+        sigma=RadialBasisFunction.MaxDistante(self.mu)/np.sqrt(self.h_size)
+        #sigma=2*RadialBasisFunction.AverageDistance(self.mu)
 
-            pass
 
     def TrainOutputLayer(self,X,Y): # Supervised
         pass
