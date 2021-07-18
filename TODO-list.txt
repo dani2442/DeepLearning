@@ -6,3 +6,4 @@
     - Decay
     - Variance - Bias tradeoff: Regularization, Dropout, etc
     - Parameter initialization: Pretraining, weights initialization
+- RNN
