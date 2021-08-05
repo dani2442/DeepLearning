@@ -2,7 +2,6 @@ def p(v): return ' '  if v==0 else str(int((v+1)/2))
 import numpy as np
 class TicTacToe(object):
 	
-
 	def __init__(self,state=None):
 		if state==None:
 			self.state=np.zeros((3,3),dtype=int)
@@ -33,7 +32,7 @@ class TicTacToe(object):
 		
 		for i in range(9):
 			id=2*(i%2)-1
-			index=p[i%2].Move(self.state)
+			index=p[i%2].Action(self.state,None)
 			index=self.Move(index,id)
 			self.PrintBoard()
 			if self.HasWon(index): 

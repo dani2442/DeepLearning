@@ -7,6 +7,6 @@ agent = BanditAgent(5)
 env = BanditEnvironment(5)
 
 model=Model(agent,env)
-model.Train(10000,40)
+model.Train(10000,verbose=40)
 print(env.r)
 print(agent.Q)

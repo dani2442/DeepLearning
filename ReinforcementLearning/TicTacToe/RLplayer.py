@@ -1,5 +1,8 @@
-from Player import Player
-class RLplayer(Player):
-	def __init__(self,player_id): super(player_id)
+from Agent import Agent
+class RLplayer(Agent):
+	def __init__(self,player_id=None): 
+		self.id=player_id
 	
-	def Move(self,state): pass
+	def Action(self,state,reward): pass
+
+	def SetPlayer(self,id): self.id=id
